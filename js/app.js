@@ -10,6 +10,26 @@ let entradasVendidas = 0;
 let ingresosAcumulados = 0;
 let comprasRealizadas = 0;
 
+function comprarEntradas() {
+    const nombreIngresado = prompt("Nombre del comprador:");
+    if (nombreIngresado === null || nombreIngresado === "") {
+        alert("Compra rechazada: el nombre es obligatorio.");
+        return;
+    }
+    const nombre = nombreIngresado;
+    const tipoIngresado = prompt("Tipo de participante (estudiante, docente o público general):");
+    if (tipoIngresado === null) {
+        alert("Compra cancelada.");
+        return;
+    }
+
+    const cantidadIngresada = prompt("Cantidad de entradas (1 a " + entradasMaximasCompra + "):");
+    if (cantidadIngresada === null) {
+        alert("Compra cancelada.");
+        return;
+    }
+}
+
 function menu() {
     let opcion;
     do {

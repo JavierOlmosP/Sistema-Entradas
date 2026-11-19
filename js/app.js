@@ -76,6 +76,30 @@ function comprarEntradas() {
         alert("Compra rechazada: solo quedan " + cuposDisponibles + " cupos y se solicitaron " + cantidad + ".");
         return;
     }
+
+    const subtotal = cantidad * precioEntrada;
+    const descuento = subtotal * tipo.descuento;
+    const total = subtotal - descuento;
+
+    cuposDisponibles -= cantidad;
+    entradasVendidas += cantidad;
+    ingresosAcumulados += total;
+    comprasRealizadas++;
+
+    const porcentaje = tipo.descuento * 100;
+    const resumen =
+        "RESUMEN DE COMPRA\n\n" +
+        "Nombre: " + nombre + "\n" +
+        "Tipo de participante: " + tipo.nombre + "\n" +
+        "Cantidad de entradas: " + cantidad + "\n\n" +
+        "Subtotal: $" + subtotal.toFixed(2) + "\n" +
+        "Descuento (" + porcentaje + " %): $" + descuento.toFixed(2) + "\n" +
+        "Total a pagar: $" + total.toFixed(2) + "\n\n" +
+        "Compra realizada exitosamente.\n" +
+        "Cupos restantes: " + cuposDisponibles;
+
+    alert(resumen);
+    console.log(resumen);
 }
 
 function menu() {

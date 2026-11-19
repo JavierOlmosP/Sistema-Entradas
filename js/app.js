@@ -10,22 +10,70 @@ let entradasVendidas = 0;
 let ingresosAcumulados = 0;
 let comprasRealizadas = 0;
 
+function igualarTexto(texto) {
+    const textoIgualado = texto.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+
+    if (textoIgualado === "estudiante") {
+        return { nombre: "Estudiante", descuento: descuentoEstudiante };
+    } else if (textoIgualado === "docente") {
+        return { nombre: "Docente", descuento: descuentoDocente };
+    } else if (textoIgualado === "publico general" || textoIgualado === "general" || textoIgualado === "publico") {
+        return { nombre: "Público general", descuento: descuentoGeneral };
+    }
+    return null;
+}
+
+function validarCantidad(texto) {
+    const limpio = texto.trim();
+    if (!/^\d+$/.test(limpio)) {
+        return null;
+    }
+    const cantidadNumerica = Number(limpio);
+    if (cantidadNumerica >= 1 && cantidadNumerica <= entradasMaximasCompra) {
+        return cantidadNumerica;
+    }
+    return null;
+}
+
 function comprarEntradas() {
+    if (cuposDisponibles === 0) {
+        alert("Evento agotado. No es posible realizar compras.");
+        return;
+    }
+
     const nombreIngresado = prompt("Nombre del comprador:");
-    if (nombreIngresado === null || nombreIngresado === "") {
+    if (nombreIngresado === null || nombreIngresado.trim() === "") {
         alert("Compra rechazada: el nombre es obligatorio.");
         return;
     }
-    const nombre = nombreIngresado;
+
+    const nombre = nombreIngresado.trim();
     const tipoIngresado = prompt("Tipo de participante (estudiante, docente o público general):");
     if (tipoIngresado === null) {
         alert("Compra cancelada.");
         return;
     }
 
+    const tipo = igualarTexto(tipoIngresado);
+    if (tipo === null) {
+        alert("Compra rechazada: tipo de participante no válido.");
+        return;
+    }
+
     const cantidadIngresada = prompt("Cantidad de entradas (1 a " + entradasMaximasCompra + "):");
     if (cantidadIngresada === null) {
         alert("Compra cancelada.");
+        return;
+    }
+
+    const cantidad = validarCantidad(cantidadIngresada);
+    if (cantidad === null) {
+        alert("Compra rechazada: la cantidad debe ser un número entero entre 1 y " + entradasMaximasCompra + ".");
+        return;
+    }
+
+    if (cantidad > cuposDisponibles) {
+        alert("Compra rechazada: solo quedan " + cuposDisponibles + " cupos y se solicitaron " + cantidad + ".");
         return;
     }
 }
@@ -42,7 +90,7 @@ function menu() {
             "Seleccione una opción:"
         );
         
-        switch (opcion) {
+        switch (opcion.trim()) {
             case "1":
                 comprarEntradas();
                 break;
@@ -58,6 +106,6 @@ function menu() {
             default:
                 alert("Opción inexistente. Ingrese un número del 1 al 4.");
         }
-    } while (opcion !== "4");
+    } while (opcion.trim() !== "4");
 }
 menu()

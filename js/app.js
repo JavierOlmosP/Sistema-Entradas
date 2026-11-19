@@ -117,6 +117,12 @@ function consultarCupos() {
     console.log(texto);
 }
 
+function consultarIngresos() {
+    const texto = "REPORTE DE INGRESOS\n\n" + "Total de entradas vendidas: " + entradasVendidas + "\n" + "Total de ingresos acumulados: $" + ingresosAcumulados.toFixed(2) + "\n" + "Número de compras realizadas: " + comprasRealizadas;
+    alert(texto);
+    console.log(texto);
+}
+
 function menu() {
     let opcion;
     do {

@@ -123,6 +123,18 @@ function consultarIngresos() {
     console.log(texto);
 }
 
+function mostrarResumenFinal() {
+    const texto =
+        "RESUMEN FINAL - INNOVA ESPE 2026\n\n" +
+        "Compras realizadas: " + comprasRealizadas + "\n" +
+        "Entradas vendidas: " + entradasVendidas + "\n" +
+        "Ingresos acumulados: $" + ingresosAcumulados.toFixed(2) + "\n" +
+        "Cupos restantes: " + cuposDisponibles + "\n\n" +
+        "Sistema finalizado. Adiós";
+    alert(texto);
+    console.log(texto);
+}
+
 function menu() {
     let opcion;
     do {
